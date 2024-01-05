@@ -1,10 +1,11 @@
-#include "inheritance.h"
+#include "virtual-function.h"
 
 int main() {
-	Player player;
-	player.Name = "QWE";
-	player.X = 2;
-	player.PrintName();
+	Entity* e = new Entity();
+	PrintName(e);
 
-	std::cout << "Hello World!" << std::endl;
+	Player* p = new Player("Lhw");
+	PrintName(p);
+
+	std::cin.get();
 }
