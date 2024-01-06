@@ -1,11 +1,9 @@
-#include "virtual-function.h"
+#include "visibility.h"
 
 int main() {
-	Entity* e = new Entity();
-	PrintName(e);
-
-	Player* p = new Player("Lhw");
-	PrintName(p);
+	Entity e;
+	e.Print();
+	e.X = 2;
 
 	std::cin.get();
 }

@@ -26,5 +26,8 @@
     <ClInclude Include="src\virtual-function.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\visibility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
