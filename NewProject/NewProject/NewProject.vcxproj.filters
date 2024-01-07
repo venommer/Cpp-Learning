@@ -29,5 +29,8 @@
     <ClInclude Include="src\visibility.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\arrays.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
