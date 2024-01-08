@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="src\arrays.h" />
     <ClInclude Include="src\inheritance.h" />
+    <ClInclude Include="src\strings.h" />
     <ClInclude Include="src\virtual-function.h" />
     <ClInclude Include="src\visibility.h" />
   </ItemGroup>
