@@ -8,6 +8,7 @@ void PrintString(const std::string& string)//transfer the reference will be fast
 	std::cout << string << std::endl;
 }
 
+/*
 int main() {
 	const char* name = "Cherno";
 	std::string name1 = std::string("lhw") + "hello";
@@ -16,3 +17,4 @@ int main() {
 	std::cout << name1 << std::endl;
 	std::cin.get();
 }
+*/
