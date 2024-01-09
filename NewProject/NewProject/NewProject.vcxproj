@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\arrays.h" />
+    <ClInclude Include="src\const.h" />
     <ClInclude Include="src\inheritance.h" />
     <ClInclude Include="src\string-literals.h" />
     <ClInclude Include="src\strings.h" />
