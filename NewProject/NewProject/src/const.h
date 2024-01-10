@@ -45,8 +45,6 @@ void PrintEntity(const Entity& e)//const reference is the same thing as const po
 
 int main() {
 	Entity e;
-
-
 	const int MAX_AGE = 90;
 
 	//int const* a = new int;
