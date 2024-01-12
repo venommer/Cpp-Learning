@@ -1,31 +1,39 @@
 #include <iostream>
 #include  <string>
 
-static int s_Level = 1;
-static int s_Speed = 2;
+using String = std::string;
 
+class Entity
+{
+private:
+	String m_Name;
+public:
+	Entity() : m_Name("Unkonwn") {}
+	Entity(const String& name) : m_Name(name) {}
+	const String& GetName() const { return m_Name; }
+};
+
+/*
+1.performance allocated on the heap takes longer than on the stack,
+and also when you allocated on the heap,
+you have to manually free that memory you allocated.
+2.when you really have to control the lifetime of objects or you have to instantiate a huge objects,
+you should create objects on the heap,
+otherwise you should create it on the stack.
+*/
 int main() {
-	if (s_Level > 5)
-		s_Speed = 10;
-	else
-		s_Speed = 5;
-	
-	s_Speed = s_Level > 5 ? 10 : 5;
-	s_Speed = s_Level > 5 && s_Level < 100 ? s_Level>10 ? 15 : 10 : 5;//
-	
-
-	std::string rank = s_Level > 10 ? "Master" : "Beginner"; 
+	//different ways to instantiate objects:
+	Entity entity;
 	/*
-	this is better than the below,
-	this construct the string immediately,
-	instead of creating an empty string and rewrite it.
+	this will call the non-parameter constructor ,
+	and create the objects in stack, 
+	which means it will be destroyed when out of its scope.
 	*/
+	Entity entity2("lhw");
+	Entity entity3 = Entity("lhw");
 
-	std::string otherRank;
-	if (s_Level > 10)
-		otherRank = "Master";
-	else
-		otherRank = "Beginner";
-
+	Entity* entity4 = new Entity("lhw");//use new key to create object on the heap,whick means it will not be destroyed unless you free them manually.
+	std::cout << (*entity4).GetName() << std::endl;//can also entity->GetName()
+	delete entity4;//free the memory that allocated for entity4,once new something,must delete it after or it will lead to memory leak.
 	std::cin.get();
 }
