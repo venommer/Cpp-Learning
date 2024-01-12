@@ -149,9 +149,11 @@
     <ClInclude Include="src\arrays.h" />
     <ClInclude Include="src\const.h" />
     <ClInclude Include="src\inheritance.h" />
+    <ClInclude Include="src\initializer-list.h" />
     <ClInclude Include="src\mutable.h" />
     <ClInclude Include="src\string-literals.h" />
     <ClInclude Include="src\strings.h" />
+    <ClInclude Include="src\ternary-operators.h" />
     <ClInclude Include="src\virtual-function.h" />
     <ClInclude Include="src\visibility.h" />
   </ItemGroup>

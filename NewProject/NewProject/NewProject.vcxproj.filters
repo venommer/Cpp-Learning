@@ -44,5 +44,11 @@
     <ClInclude Include="src\mutable.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\initializer-list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ternary-operators.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
