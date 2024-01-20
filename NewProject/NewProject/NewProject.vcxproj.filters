@@ -53,5 +53,8 @@
     <ClInclude Include="src\instantiate.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\new.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,8 +2,9 @@
 #include <iostream>
 #include  <string>
 
+//string intrinsically is const char[] not char[]
 //use const to insure that the string being transfered will not be changed
-void PrintString(const std::string& string)//transfer the reference will be faster because if you dont use reference it will copy the original string and allocate extra memory form heap;
+void PrintString(const std::string& string)//transfer the reference will be faster because if you dont use reference it will copy the original string and allocate extra memory from heap;
 {
 	std::cout << string << std::endl;
 }

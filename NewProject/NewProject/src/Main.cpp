@@ -8,32 +8,36 @@ class Entity
 private:
 	String m_Name;
 public:
-	Entity() : m_Name("Unkonwn") {}
+	Entity() :m_Name("Unkonwn") { std::cout << "Constructor be called!" << std::endl; }
+	/*
+	(const String&) transfer the reference of string 
+	instead of creating a copy 
+	which makes it faster,high performance,
+	so when you have to manipulate string varibles,
+	use string&,
+	if you do not want it to be modified,
+	use const string&¡£
+	*/
 	Entity(const String& name) : m_Name(name) {}
 	const String& GetName() const { return m_Name; }
 };
 
 /*
-1.performance allocated on the heap takes longer than on the stack,
-and also when you allocated on the heap,
-you have to manually free that memory you allocated.
-2.when you really have to control the lifetime of objects or you have to instantiate a huge objects,
-you should create objects on the heap,
-otherwise you should create it on the stack.
+1.new has to search the free block list (which maintains by the system)
+to find a block that accommodate your need 
+and return a pointer that points to it.
+2.new is an operator which means we can overload it.
+3.usually calling new will call the underlying state C function malloc() which for memory allocate
+4.whenever use new remember to use delete to free the memory that allocated,
+delete also call the destructor and its a operator too,so it can be overloaded;
 */
 int main() {
-	//different ways to instantiate objects:
-	Entity entity;
-	/*
-	this will call the non-parameter constructor ,
-	and create the objects in stack, 
-	which means it will be destroyed when out of its scope.
-	*/
-	Entity entity2("lhw");
-	Entity entity3 = Entity("lhw");
-
-	Entity* entity4 = new Entity("lhw");//use new key to create object on the heap,whick means it will not be destroyed unless you free them manually.
-	std::cout << (*entity4).GetName() << std::endl;//can also entity->GetName()
-	delete entity4;//free the memory that allocated for entity4,once new something,must delete it after or it will lead to memory leak.
+	int a = 2;
+	int* b = new int;//new returns a pointer;
+	int* b1 = new int[50];//allocate memory for array;
+	Entity* e = new Entity[50];//new keyword not only just allocate memory but also call the constructor
+	malloc(50);
+	delete e;
+	delete[] b1;//if you allocate using new square brackets,you should using delete square brackets;a
 	std::cin.get();
 }
