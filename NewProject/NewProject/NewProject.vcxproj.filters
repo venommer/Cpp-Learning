@@ -56,5 +56,8 @@
     <ClInclude Include="src\new.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\implicit-conversion.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

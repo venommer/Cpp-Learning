@@ -39,6 +39,6 @@ int main() {
 	Entity* e = new Entity[50];//new keyword not only just allocate memory but also call the constructor
 	malloc(50);
 	delete e;
-	delete[] b1;//if you allocate using new square brackets,you should using delete square brackets;a
+	delete[] b1;//if you allocate using new square brackets,you should using delete square brackets;
 	std::cin.get();
 }
