@@ -3,52 +3,65 @@
 
 using String = std::string;
 
-class Entity
+struct Vector2
 {
-private:
-	String m_Name;
-	int m_age;
-public:
-	Entity() :m_Name("Unkonwn") { std::cout << "Constructor be called!" << std::endl; }
-	Entity(const String& name) : m_Name(name),m_age(-1) {}
+	float x, y;
 
-	/*
-	the explicit key word can be used in front of a Constructor,
-	which means you can not do the implicit conversion,
-	you have to call the function explicitly.
-	when you have to ensure your program safe and the computer wont convert the varible into wrong type,
-	use this key word.
-	*/
-	explicit Entity(int age) : m_Name("Unknown"), m_age(age) {}
+	Vector2(float x,float y)
+		: x(x),y(y) {}
+
+	Vector2 Add(const Vector2& other) const
+	{
+		return Vector2(x + other.x, y + other.y);
+	}
+
+	Vector2 operator+(const Vector2& other) const
+	{
+		return Add(other);
+	}
+
+	Vector2 Multiply(const Vector2& other) const
+	{
+		return Vector2(x * other.x, y * other.y);
+	}
+
+	Vector2 operator*(const Vector2& other) const
+	{
+		return Multiply(other);
+	}
+
+	bool operator==(const Vector2& other) const
+	{
+		return x == other.x && y == other.y;
+	}
+
+	bool operator!=(const Vector2& other) const
+	{
+		//return !operator==(other);
+		return !(*this == other);//the above annotation code is weird,use this way or get a equals function and return it.
+	}
 };
 
-void PrintEntity(const Entity& entity)
+std::ostream& operator<<(std::ostream& stream, const Vector2& other)
 {
-	//Print
+	stream << other.x << "," << other.y;
+	return stream;
 }
 
+//operator overload is mainly used to simplify the code.
 int main() {
-	/*
-	22 can be converted into an entity object,
-	because we have an Constructor take integer parameter,
-	so the c++ can do the implicit conversion for us;
-	*/
-	PrintEntity(22);
-	/*
-	but "Lhw" can not be converted into Entity immediately,
-	because Lhw is const char[] type,
-	and we only have a std::string type Constructor,
-	so we have to convert const char[] into std::string first,
-	then we can call the constructor to convert the string into an entity,
-	however c++ can only do implicit conversion once at the same time,
-	so this wont work.
-	*/
-	PrintEntity("Lhw");
-	PrintEntity((Entity)"Lhw");
-	PrintEntity((String)"Lhw");
-	Entity a("Lhw");
-	Entity a1 = "Lhw";//the same reason as the above PrintEntity function.
-	Entity a2 = (String)"Lhw";
-	Entity b(22); // better to write in this way,cleaner and understandable.
+	Vector2 position(4.0f, 4.0f);
+	Vector2 speed(0.5f, 1.5f);
+	Vector2 powerup(1.1f, 1.1f);
+
+	Vector2 result1 = position.Add(speed.Multiply(powerup));//hard to read.
+	Vector2 result2 = position + speed * powerup;//overload the operator to make the code cleaner.
+	if (result1 == result2)//overload == to make the two vector2 can be compared straightly.
+	{
+
+	}
+	std::cout << "result1.x: " << result1.x << " result1.y: " << result1.y << std::endl;
+	std::cout << "result2.x: " << result2.x << " result2.y: " << result2.y << std::endl;
+	std::cout << result2;//overload "<<" to make it print Vector straightly.
 	std::cin.get();
 }
