@@ -158,6 +158,7 @@
     <ClInclude Include="src\string-literals.h" />
     <ClInclude Include="src\strings.h" />
     <ClInclude Include="src\ternary-operators.h" />
+    <ClInclude Include="src\this.h" />
     <ClInclude Include="src\virtual-function.h" />
     <ClInclude Include="src\visibility.h" />
   </ItemGroup>
