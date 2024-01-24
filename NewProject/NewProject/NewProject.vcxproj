@@ -154,6 +154,7 @@
     <ClInclude Include="src\instantiate.h" />
     <ClInclude Include="src\mutable.h" />
     <ClInclude Include="src\new.h" />
+    <ClInclude Include="src\object-lifetime.h" />
     <ClInclude Include="src\operator.h" />
     <ClInclude Include="src\string-literals.h" />
     <ClInclude Include="src\strings.h" />
