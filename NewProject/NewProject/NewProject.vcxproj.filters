@@ -68,5 +68,8 @@
     <ClInclude Include="src\object-lifetime.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\smartpointers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

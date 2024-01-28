@@ -156,6 +156,7 @@
     <ClInclude Include="src\new.h" />
     <ClInclude Include="src\object-lifetime.h" />
     <ClInclude Include="src\operator.h" />
+    <ClInclude Include="src\smartpointers.h" />
     <ClInclude Include="src\string-literals.h" />
     <ClInclude Include="src\strings.h" />
     <ClInclude Include="src\ternary-operators.h" />

@@ -1,3 +1,2 @@
 ﻿  Main.cpp
-C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\NewProject\src\Main.cpp(58): warning C4172: 返回局部变量或临时变量的地址: array
   NewProject.vcxproj -> C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\bin\x64\Debug\NewProject.exe
