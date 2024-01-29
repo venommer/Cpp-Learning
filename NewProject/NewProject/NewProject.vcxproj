@@ -148,6 +148,8 @@
   <ItemGroup>
     <ClInclude Include="src\arrays.h" />
     <ClInclude Include="src\const.h" />
+    <ClInclude Include="src\copy.h" />
+    <ClInclude Include="src\Enums.h" />
     <ClInclude Include="src\implicit-conversion.h" />
     <ClInclude Include="src\inheritance.h" />
     <ClInclude Include="src\initializer-list.h" />
