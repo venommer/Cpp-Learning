@@ -1,59 +1,66 @@
 #include <iostream>
-#include  <string>
 #include <memory>
 
-
-class Entity
+class String
 {
+private:
+	char* m_Buffer;
+	unsigned int m_Size;
 public:
-	Entity()
+	String(const char* string)
 	{
-		std::cout << "Created Entity!" << std::endl;
+		m_Size = strlen(string);
+		m_Buffer = new char[m_Size+1];//strcpy includes the null termination character
+		memcpy(m_Buffer, string, m_Size+1);
+		m_Buffer[m_Size] = 0;//make sure the string has a null termination character.
 	}
 
-	~Entity()
+	//actually c++ offer you default copy constructor,which indeed just use memcpy to copy everything inside.
+	String(const String& other)
+		:m_Size(other.m_Size)
 	{
-		std::cout << "Destroyed Entity!" << std::endl;
+		std::cout << "Copied String!" << std::endl;
+		m_Buffer = new char[m_Size + 1];
+		memcpy(m_Buffer, other.m_Buffer, m_Size + 1);
+	}
+
+	friend std::ostream& operator<<(std::ostream& stream, const String& string);
+
+	~String()
+	{
+		delete[] m_Buffer;
+	}
+
+	char& operator[](unsigned int index)
+	{
+		//safety check
+		return m_Buffer[index];
 	}
 };
 
-/*
-1. unique_ptr first preference,shared_ptr second preference
-2. unique_ptr has very low overhead,so when you can use unique_ptr,just use it.
-3. shared_ptr use reference counting to track the reference of this ptr,when the count reachs 0,the shared_ptr will be destroyed.
-4. because of the reference counting,shared_ptr has a lot of overhead
+std::ostream& operator<<(std::ostream& stream, const String& string)
+{
+	stream << string.m_Buffer;//can also write a GetBuffer function.
+	return stream;
+}
 
-*/
+//always pass your objects as const reference,if you want to copy the object,you can copy inside the function,there is no need to copy object when passing it.
+void PrintString(const String& string)
+{
+	std::cout << string << std::endl;
+}
+
 int main() 
 {
-	{
-		std::shared_ptr<Entity> e1;
-		{	
-		    /*
-			can also sharedEntity(new Entity()), but never use it that way,
-			cause shared_ptr has to allocate two block of memory,
-			one for the pointer ,another for the control block which implements reference counting.
-			so if you first create a new Entity and pass it to the shared_ptr constructor,
-			there will be two allocations,
-			first for Entity,second for control block,
-			but if you use make_shared,
-			they can be constructed together which is way more efficient.
-			*/
-			std::shared_ptr<Entity> sharedEntity = std::make_shared<Entity>();
-			e1 = sharedEntity;
+	String string = "Cherno";
+	String second = string;//this copy makes the two pointers points two the same memory.
 
-			//weak_ptr copy the sharedEntity but not increase the reference count.
-			//through weak_ptr we can konw about the situation of shared_ptr,but weak_ptr wont keep the shared_ptr alive! 
-			std::weak_ptr<Entity> weakEntity = sharedEntity;
+	string[2] = 'a';
+	//std::cout << string << std::endl;
+	//std::cout << second << std::endl;
 
+	PrintString(string);
+	PrintString(second);
 
-			//have to call the unique_ptr constructor explicitly cause the implementation use explicit keyword.
-			//unique_ptr is a stack allocated object,when this objects out of scope,it will call descructor and delete your pointer free that memory.
-			std::unique_ptr<Entity> entity = std::make_unique<Entity>();//can also entity(new Entity()),but this is the common way,its safer for exception.
-			std::unique_ptr<Entity> e0 = entity;//unique__ptr cant be copied,because the copy constructor and copy assignment operator of unique_ptr are deleted.
-		}
-	}
-	
-	
 	std::cin.get();
-}
+}//if you dont overwrite the copy constructor to allocate another block memory for second Strig,when the main function ends,execute two destructors,they all have to delete the pointer,but they point to the same place,so that memory will be freed twice,and thats a fatal error.

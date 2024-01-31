@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include  <string>
-#include <memory>
+#include <memory>//if you want to use smart pointers,you have to include <memory>.
 
 
 class Entity
