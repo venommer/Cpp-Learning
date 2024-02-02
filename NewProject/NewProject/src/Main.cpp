@@ -1,66 +1,59 @@
 #include <iostream>
 #include <memory>
 
-class String
+class Entity
+{
+public:
+	void Print() const { std::cout << "Hello!" << std::endl; }
+};
+
+class ScopedPtr
 {
 private:
-	char* m_Buffer;
-	unsigned int m_Size;
+	Entity* m_Obj;
 public:
-	String(const char* string)
+	ScopedPtr(Entity* entity)
+		:m_Obj(entity)
 	{
-		m_Size = strlen(string);
-		m_Buffer = new char[m_Size+1];//strcpy includes the null termination character
-		memcpy(m_Buffer, string, m_Size+1);
-		m_Buffer[m_Size] = 0;//make sure the string has a null termination character.
+
 	}
 
-	//actually c++ offer you default copy constructor,which indeed just use memcpy to copy everything inside.
-	String(const String& other)
-		:m_Size(other.m_Size)
+	~ScopedPtr()
 	{
-		std::cout << "Copied String!" << std::endl;
-		m_Buffer = new char[m_Size + 1];
-		memcpy(m_Buffer, other.m_Buffer, m_Size + 1);
+		delete m_Obj;
 	}
 
-	friend std::ostream& operator<<(std::ostream& stream, const String& string);
-
-	~String()
+	Entity* operator->()
 	{
-		delete[] m_Buffer;
+		return m_Obj;
 	}
 
-	char& operator[](unsigned int index)
+	const Entity* operator->() const//const version
 	{
-		//safety check
-		return m_Buffer[index];
+		return m_Obj;
 	}
 };
 
-std::ostream& operator<<(std::ostream& stream, const String& string)
+struct Vector3
 {
-	stream << string.m_Buffer;//can also write a GetBuffer function.
-	return stream;
-}
+	float x, y, z;
+};
 
-//always pass your objects as const reference,if you want to copy the object,you can copy inside the function,there is no need to copy object when passing it.
-void PrintString(const String& string)
+int main()
 {
-	std::cout << string << std::endl;
-}
+	Entity e;
+	e.Print();
 
-int main() 
-{
-	String string = "Cherno";
-	String second = string;//this copy makes the two pointers points two the same memory.
+	Entity* ptr = &e;
+	Entity& entity = *ptr;
+	ptr->Print();//if the object is a ptr,we can use arrow operator to call member functions and do not have to deference it.
 
-	string[2] = 'a';
-	//std::cout << string << std::endl;
-	//std::cout << second << std::endl;
 
-	PrintString(string);
-	PrintString(second);
+	const ScopedPtr entity1 = new Entity();
+	entity1->Print();//so if you want to use arrow operator in a pointer encapsulated in an object,you can overload it.
 
+	//if you want to konw the offset of a serializing data,this is a useful way to do.
+	int offset = (int)(&((Vector3*)0)->y);//can also (int)(&((Vector3*)nullptr)->y)
+	std::cout << offset << std::endl;
 	std::cin.get();
-}//if you dont overwrite the copy constructor to allocate another block memory for second Strig,when the main function ends,execute two destructors,they all have to delete the pointer,but they point to the same place,so that memory will be freed twice,and thats a fatal error.
+}

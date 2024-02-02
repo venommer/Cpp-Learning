@@ -1,3 +1,4 @@
 ﻿  Main.cpp
-C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\NewProject\src\Main.cpp(12,18): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\NewProject\src\Main.cpp(55,15): warning C4311: “类型强制转换”: 从“float *”到“int”的指针截断
+C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\NewProject\src\Main.cpp(55,15): warning C4302: “类型强制转换”: 从“float *”到“int”截断
   NewProject.vcxproj -> C:\Users\lhw\Desktop\新建文件夹\Cpp-Learning\NewProject\bin\x64\Debug\NewProject.exe
