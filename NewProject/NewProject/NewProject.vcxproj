@@ -165,6 +165,7 @@
     <ClInclude Include="src\strings.h" />
     <ClInclude Include="src\ternary-operators.h" />
     <ClInclude Include="src\this.h" />
+    <ClInclude Include="src\vector-optimization.h" />
     <ClInclude Include="src\virtual-function.h" />
     <ClInclude Include="src\visibility.h" />
   </ItemGroup>

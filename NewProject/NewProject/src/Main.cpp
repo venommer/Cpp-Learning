@@ -5,6 +5,18 @@
 struct Vertex
 {
 	float x, y, z;
+
+	Vertex(float x,float y,float z)
+		:x(x),y(y),z(z)
+	{
+
+	}
+
+	Vertex(const Vertex& vertice)
+		:x(vertice.x), y(vertice.y), z(vertice.z)
+	{
+		std::cout << "Copied!" << std::endl;
+	}
 };
 
 std::ostream& operator<<(std::ostream& stream, const Vertex& vertex)
@@ -13,40 +25,25 @@ std::ostream& operator<<(std::ostream& stream, const Vertex& vertex)
 	return stream;
 }
 
-//make sure you passing the reference when you write a function,so that we could avoid copying the entire array.
-void Function(const std::vector<Vertex>& vertices)
-{
-
-}
-
 /*
-* 1. once you resize the vector,it needs to copy all the data and reallocate it,which is a huge performance
-* 2. trying to create objects vector if possible instead of pointers,
-*	 cause if using objects vector,they will be stored in a row in memory,and once we use it,
-*    those objects will be in the same cache line,and it will be mush faster,
-*    but if we create pointers vector,the memory will be instact,just the address of pointers keeps changing,
-*	 the data is being stored fragmentally,and it will be much slower.
-* 3. 
+* once the vector is resized,vector will copy all the data and reallocate them.
+* the push_back function construct objects in the main function memory,and copy it to the vector memory,
+* so we can optimize the vector in two ways,
+* 1. set enough capacity for vector so that its not going to resize
+* 2. make the vector construct objects in the memory allocated for vector straightly so that we can avoid copying.
 */
 int main()
 {
-	//if you cant konw the exact size of array,you can use vector which is a dynamic array can automatic adjust size after each modification.
 	std::vector<Vertex> vertices;
-	vertices.push_back({1,2,3});//we can use intialize list to instantiate an object in the push_back function.
-	vertices.push_back({4,5,6});
-	Function(vertices);
-	/*for (int i = 0; i < vertices.size(); i++)
-		std::cout << vertices[i] << std::endl;*/
+	//this will construct 3 objects,and it wont through the compile,we should use reserve function just to set capacity and do not have to construct any objects
+	//std::vector<Vertex> vertices(3);
+	vertices.reserve(3);//set enough capacity
 
-	for (Vertex v :vertices)//if you dont use reference here,this will copy each vertex object
-		std::cout << v << std::endl;
+	//we should use emplace_back function which means we tell the vector to construct objects in the vector memory straightly to avoid copying.
+	//vertices.push_back(Vertex(1,2,3));
 
-	vertices.erase(vertices.begin() + 1);//the erase function takes in an iterator
-
-
-	for (Vertex& v : vertices)//so use reference here,this will not going to copy data,and will be much faster.
-		std::cout << v << std::endl;
-
-	Vertex vertice = vertices.back();
+	vertices.emplace_back(1,2,3);//just pass the parameters we need to constrct objects,do not have to use intialize list.
+	vertices.emplace_back(4,5,6);
+	vertices.emplace_back(7,8,9);
 	std::cin.get();
 }
