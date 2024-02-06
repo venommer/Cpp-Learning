@@ -80,5 +80,8 @@
     <ClInclude Include="src\arrow-operator.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\dynamic-arrays.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

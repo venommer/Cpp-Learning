@@ -1,59 +1,52 @@
 #include <iostream>
-#include <memory>
+#include <string>
+#include <vector>
 
-class Entity
-{
-public:
-	void Print() const { std::cout << "Hello!" << std::endl; }
-};
-
-class ScopedPtr
-{
-private:
-	Entity* m_Obj;
-public:
-	ScopedPtr(Entity* entity)
-		:m_Obj(entity)
-	{
-
-	}
-
-	~ScopedPtr()
-	{
-		delete m_Obj;
-	}
-
-	Entity* operator->()
-	{
-		return m_Obj;
-	}
-
-	const Entity* operator->() const//const version
-	{
-		return m_Obj;
-	}
-};
-
-struct Vector3
+struct Vertex
 {
 	float x, y, z;
 };
 
+std::ostream& operator<<(std::ostream& stream, const Vertex& vertex)
+{
+	stream << vertex.x << ", " << vertex.y << ", " << vertex.z;
+	return stream;
+}
+
+//make sure you passing the reference when you write a function,so that we could avoid copying the entire array.
+void Function(const std::vector<Vertex>& vertices)
+{
+
+}
+
+/*
+* 1. once you resize the vector,it needs to copy all the data and reallocate it,which is a huge performance
+* 2. trying to create objects vector if possible instead of pointers,
+*	 cause if using objects vector,they will be stored in a row in memory,and once we use it,
+*    those objects will be in the same cache line,and it will be mush faster,
+*    but if we create pointers vector,the memory will be instact,just the address of pointers keeps changing,
+*	 the data is being stored fragmentally,and it will be much slower.
+* 3. 
+*/
 int main()
 {
-	Entity e;
-	e.Print();
+	//if you cant konw the exact size of array,you can use vector which is a dynamic array can automatic adjust size after each modification.
+	std::vector<Vertex> vertices;
+	vertices.push_back({1,2,3});//we can use intialize list to instantiate an object in the push_back function.
+	vertices.push_back({4,5,6});
+	Function(vertices);
+	/*for (int i = 0; i < vertices.size(); i++)
+		std::cout << vertices[i] << std::endl;*/
 
-	Entity* ptr = &e;
-	Entity& entity = *ptr;
-	ptr->Print();//if the object is a ptr,we can use arrow operator to call member functions and do not have to deference it.
+	for (Vertex v :vertices)//if you dont use reference here,this will copy each vertex object
+		std::cout << v << std::endl;
+
+	vertices.erase(vertices.begin() + 1);//the erase function takes in an iterator
 
 
-	const ScopedPtr entity1 = new Entity();
-	entity1->Print();//so if you want to use arrow operator in a pointer encapsulated in an object,you can overload it.
+	for (Vertex& v : vertices)//so use reference here,this will not going to copy data,and will be much faster.
+		std::cout << v << std::endl;
 
-	//if you want to konw the offset of a serializing data,this is a useful way to do.
-	int offset = (int)(&((Vector3*)0)->y);//can also (int)(&((Vector3*)nullptr)->y)
-	std::cout << offset << std::endl;
+	Vertex vertice = vertices.back();
 	std::cin.get();
 }
