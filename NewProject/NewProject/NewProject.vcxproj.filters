@@ -86,5 +86,8 @@
     <ClInclude Include="src\vector-optimization.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\local-static.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -156,6 +156,7 @@
     <ClInclude Include="src\inheritance.h" />
     <ClInclude Include="src\initializer-list.h" />
     <ClInclude Include="src\instantiate.h" />
+    <ClInclude Include="src\local-static.h" />
     <ClInclude Include="src\mutable.h" />
     <ClInclude Include="src\new.h" />
     <ClInclude Include="src\object-lifetime.h" />
